@@ -57,7 +57,11 @@ if ($argc == 3 && $fd = fopen($argv[2], 'r')) {
 
 	$votes = $e->get_list_votes($list);
 	print "$list_name в топ-5: ". count($votes). "\n";
-	print_v($votes);
+	if (count($votes) == 0) {
+	  print "\n";
+	} else {
+	  print_v($votes);
+	}
   }
 }
 
