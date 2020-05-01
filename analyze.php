@@ -31,23 +31,8 @@ function print_v(array $votes) {
   }
 }
 
-$pletnev_list = array(
-  'Леонид Петричук',
-  'Ирина',
-  'Мартин Левушканс',
-  'Алексей Буткеев'
-);
-
-$jewish_list = array(
-  'Илья Гуревич',
-  'Мария Немцова',
-  'Виктор Петрунин',
-  'Ирина Шехтер',
-  'Илья Эйдлин'
-);
-
-if ($argc !=2) {
-  fwrite(STDERR, "Usage: php ", $argv[0]. " <data.cvs>\n");
+if ($argc < 2 || $argc > 3) {
+  fwrite(STDERR, "Usage: php ". $argv[0]. " <data.cvs> [<lists.csv>]\n");
   exit(255);
 }
 
@@ -61,15 +46,20 @@ print_a($e->get_lasts());
 
 print "\nВхождений в топ-5:\n";
 print_a($e->get_five());
+print "\n";
 
-$votes = $e->get_list_votes($pletnev_list);
-print "\nСписок Плетнёва в топ-5: ". count($votes). "\n";
-print_v($votes);
+if ($argc == 3 && $fd = fopen($argv[2], 'r')) {
+  while ($list = fgetcsv($fd)) {
+	if (count($list) < 2)
+	  continue;
 
-$votes = $e->get_list_votes($jewish_list);
-print "Еврейский список в топ-5: ". count($votes). "\n";
-print_v($votes);
+	$list_name = array_shift($list);
 
+	$votes = $e->get_list_votes($list);
+	print "$list_name в топ-5: ". count($votes). "\n";
+	print_v($votes);
+  }
+}
 
 print "Результат по Шульце:\n";
 print_a($e->count_shultze());
