@@ -58,6 +58,22 @@ class Elections {
 	return false;
   }
 
+  private function fill_members() {
+	$this->members = array();
+	foreach ($this->votes as $vote) {
+	  foreach ($vote['places'] as $member) {
+		if (!in_array($member, $this->members)) {
+		  array_push($this->members, $member);
+		}
+	  }
+	  foreach ($vote['last'] as $member) {
+		if (!in_array($member, $this->members)) {
+		  array_push($this->members, $member);
+		}
+	  }
+	}
+  }
+
   function __construct($file) {
 	if (!$fd = fopen($file, 'r'))
 	  throw new Exception("Can't open $file");
@@ -71,7 +87,7 @@ class Elections {
 	  array_push($votes, $vote);
 	}
 	$this->votes = $votes;
-	$this->members = array_merge($vote['places'], $vote['last']);
+	$this->fill_members();
 	$this->counter = new Counter($this->members);
 
 	$this->d_matrix = new Matrix($this->members);
