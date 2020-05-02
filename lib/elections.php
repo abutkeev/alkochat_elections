@@ -94,6 +94,20 @@ class Elections {
 	$this->p_matrix = new Matrix($this->members);
   }
 
+  function save_d_matrix($filename) {
+	if (!$fd = fopen($filename, 'w')) {
+	  throw new Exception("Can't open $filename");
+	}
+	$this->d_matrix->out($fd);
+  }
+
+  function save_p_matrix($filename) {
+	if (!$fd = fopen($filename, 'w')) {
+	  throw new Exception("Can't open $filename");
+	}
+	$this->p_matrix->out($fd);
+  }
+
   function get_quorum() {
 	return floor(count($this->votes) / 2 + 1);
   }

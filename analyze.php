@@ -31,8 +31,8 @@ function print_v(array $votes) {
   }
 }
 
-if ($argc < 2 || $argc > 4) {
-  fwrite(STDERR, "Usage: php ". $argv[0]. " <data.cvs> [<lists.csv> [<publish_bullots>]]\n");
+if ($argc < 2 || $argc > 6) {
+  fwrite(STDERR, "Usage: php ". $argv[0]. " <data.csv> [<lists.csv> [<publish_bullots> [<d_matrix.csv>] [<p_matrix.csv>]]]\n");
   exit(255);
 }
 
@@ -60,8 +60,12 @@ if ($argc >= 3 && $fd = fopen($argv[2], 'r')) {
 	if (count($votes) == 0) {
 	  print "\n";
 	} else {
-	  if ($argc == 4 && $argv[3] == 'true') {
-		print_v($votes);
+	  if ($argc >= 4) {
+		if ( $argv[3] == 'true') {
+		  print_v($votes);
+		} elseif ($argv[3] != 'false') {
+		  throw new Exception("publish_bullot must be true or false");
+		}
 	  } else {
 		print "\n";
 	  }
@@ -73,3 +77,15 @@ print "Результат по Шульце:\n";
 print_a($e->count_shultze());
 
 print "\nКворум: ". $e->get_quorum(). "\n";
+
+if ($argc >= 4) {
+  $filename = $argv[4];
+  print "\nd matrix saved to: ". $filename. "\n\n";
+  $e->save_d_matrix($filename);
+}
+
+if ($argc >= 5) {
+  $filename = $argv[5];
+  print "d matrix saved to: ". $filename. "\n";
+  $e->save_p_matrix($filename);
+}
