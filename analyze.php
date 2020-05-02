@@ -31,8 +31,8 @@ function print_v(array $votes) {
   }
 }
 
-if ($argc < 2 || $argc > 3) {
-  fwrite(STDERR, "Usage: php ". $argv[0]. " <data.cvs> [<lists.csv>]\n");
+if ($argc < 2 || $argc > 4) {
+  fwrite(STDERR, "Usage: php ". $argv[0]. " <data.cvs> [<lists.csv> [<publish_bullots>]]\n");
   exit(255);
 }
 
@@ -48,7 +48,7 @@ print "\nВхождений в топ-5:\n";
 print_a($e->get_five());
 print "\n";
 
-if ($argc == 3 && $fd = fopen($argv[2], 'r')) {
+if ($argc >= 3 && $fd = fopen($argv[2], 'r')) {
   while ($list = fgetcsv($fd)) {
 	if (count($list) < 2)
 	  continue;
@@ -60,7 +60,11 @@ if ($argc == 3 && $fd = fopen($argv[2], 'r')) {
 	if (count($votes) == 0) {
 	  print "\n";
 	} else {
-	  print_v($votes);
+	  if ($argc == 4 && $argv[3] == 'true') {
+		print_v($votes);
+	  } else {
+		print "\n";
+	  }
 	}
   }
 }
