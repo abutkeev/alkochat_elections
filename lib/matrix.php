@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Lib;
+
 class Matrix {
   private $matrix;
   private $max_key_len;

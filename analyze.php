@@ -1,7 +1,10 @@
 <?php
-require('lib/matrix.php');
-require('lib/counter.php');
-require('lib/elections.php');
+
+namespace App;
+
+use App\Lib\Elections;
+use App\Lib\Matrix;
+use App\Lib\Counter;
 
 function print_a(array $array, $print_position = true, $print_key = true, $print_value = true) {
   if (!($print_position || $print_key || $print_value))

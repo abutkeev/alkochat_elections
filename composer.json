@@ -1,0 +1,10 @@
+{
+    "name": "abutkeev/alkochat_elections",
+    "authors": [
+        {
+            "name": "Alexey V. Butkeev",
+            "email": "abutkeev@abutkeev.ru"
+        }
+    ],
+    "require": {}
+}
