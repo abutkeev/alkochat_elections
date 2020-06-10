@@ -2,3 +2,5 @@
 lib/.AppleDouble/
 data/
 .DS_Store
+
+/vendor/

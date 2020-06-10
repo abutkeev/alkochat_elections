@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Lib;
+
 class Elections {
   private $votes;
   private $members;
