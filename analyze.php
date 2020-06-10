@@ -1,5 +1,7 @@
 <?php
 
+require "vendor/autoload.php";
+
 namespace App;
 
 use App\Lib\Elections;
