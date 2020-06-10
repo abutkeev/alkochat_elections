@@ -1,8 +1,8 @@
 <?php
 
-require "vendor/autoload.php";
-
 namespace App;
+
+require "vendor/autoload.php";
 
 use App\Lib\Elections;
 use App\Lib\Matrix;
